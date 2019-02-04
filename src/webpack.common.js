@@ -11,7 +11,12 @@ const definePlugin = require('webpack/lib/DefinePlugin'),
   assetsPlugin = require('assets-webpack-plugin'),
   htmlWebpackPlugin = require('html-webpack-plugin'),
   extractTextPlugin = require('extract-text-webpack-plugin'),
-  scriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+  scriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'),
+  webpack = require('webpack');
+
+const handler = (percentage, message, ...args) => {
+  console.info(percentage.toFixed(2), '%', message, ...args);
+};
 
 const defaultConfig = function (options, root, settings) {
   const PORT = settings.port[options.platform];
@@ -91,7 +96,7 @@ const defaultConfig = function (options, root, settings) {
        * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
        */
       new checkerPlugin(),
-
+      new webpack.ProgressPlugin(handler),
       /**
        * Plugin LoaderOptionsPlugin (experimental)
        *

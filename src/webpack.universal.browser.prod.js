@@ -3,7 +3,7 @@
  */
 const defaultConfig = require('./webpack.universal.browser.common'),
   prodConfig = require('./webpack.common.prod'),
-  webpackMerge = require('webpack-merge'),
+  webpackMerge = require('webpack-merge');
 
 const angularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 

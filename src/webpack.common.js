@@ -10,8 +10,8 @@ const definePlugin = require('webpack/lib/DefinePlugin'),
   loaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin'),
   assetsPlugin = require('assets-webpack-plugin'),
   htmlWebpackPlugin = require('html-webpack-plugin'),
-  extractTextPlugin = require('extract-text-webpack-plugin'),
   scriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin'),
+  MiniCssExtractPlugin = require("mini-css-extract-plugin"),
   webpack = require('webpack');
 
 const handler = (percentage, message, ...args) => {
@@ -336,10 +336,10 @@ const browserConfig = function (options, root, settings) {
             root('node_modules')
           ],
           use: isProd
-            ? extractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: `css-loader?minimize!postcss-loader!sass-loader!stylefmt-loader?config=${settings.paths.tools.config}/stylelint.config.js`
-            })
+            ? [
+              MiniCssExtractPlugin.loader, 
+              "css-loader",
+              "sass-loader"]
             // TODO: temporarily disabled for sourcemaps interference
             // : ['style-loader','css-loader?sourceMap','sass-loader?sourceMap'],
             : ['style-loader', 'css-loader', 'sass-loader']

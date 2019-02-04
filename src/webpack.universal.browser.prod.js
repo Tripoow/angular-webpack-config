@@ -3,7 +3,12 @@
  */
 const defaultConfig = require('./webpack.universal.browser.common'),
   prodConfig = require('./webpack.common.prod'),
-  webpackMerge = require('webpack-merge');
+  webpackMerge = require('webpack-merge'),
+  webpack = require('webpack');
+
+const handler = (percentage, message, ...args) => {
+  console.info(percentage.toFixed(2), '%', message, ...args);
+};
 
 const angularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 
@@ -26,6 +31,7 @@ module.exports = function(root, settings) {
        *
        * See: https://github.com/angular/devkit
        */
+      new webpack.ProgressPlugin(handler),
       new angularCompilerPlugin({
         tsConfigPath: './tsconfig.json',
         entryModule: root(`${settings.paths.src.client.app.root}/app.browser.module#AppBrowserModule`)

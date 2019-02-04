@@ -452,12 +452,15 @@ const browserConfig = function (options, root, settings) {
       }),
 
       /**
-       * Plugin: ExtractTextPlugin
+       * Plugin: MiniCssExtractPlugin
        * Description: Extracts text from bundle into a file.
        *
        * See: https://github.com/webpack/extract-text-webpack-plugin
        */
-      new extractTextPlugin(`[name]${isProd ? '.[chunkhash]' : ''}.style.css`),
+      new MiniCssExtractPlugin({
+        filename: `[name]${isProd ? '.[chunkhash]' : ''}.style.css`,
+        chunkFilename: `[id]${isProd ? '.[chunkhash]' : ''}.style.css`
+      }),
 
       /**
        * Plugin: ScriptExtHtmlWebpackPlugin

@@ -15,7 +15,7 @@ const definePlugin = require('webpack/lib/DefinePlugin'),
   webpack = require('webpack');
 
 const handler = (percentage, message, ...args) => {
-  console.info(percentage.toFixed(2), '%', message, ...args);
+  console.info((percentage*100).toFixed(2), '%', message, ...args);
 };
 
 const defaultConfig = function (options, root, settings) {
